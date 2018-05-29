@@ -1,0 +1,51 @@
+//--------------------------------------------------
+//Declara puertos de entradas y salidas y variables
+//--------------------------------------------------
+ 
+int contacto = 2;  //Pin asignado al reed switch
+int led= 13;       //Pin asignado al LED
+int estado = 0;
+int estado_anterior = 1;
+ 
+//------------------------------------
+//Funcion principal
+//------------------------------------
+void setup() // Se ejecuta cada vez que el Arduino se inicia
+{
+  pinMode(contacto,INPUT); //El reed switch como una entrada
+  pinMode(led, OUTPUT);    //El LED como una salida
+  Serial.begin(9600);
+ 
+}
+ 
+//------------------------------------
+//Funcion ciclicla
+//------------------------------------
+void loop() // Esta funcion se mantiene ejecutando
+{           //  cuando este energizado el Arduino
+
+  if (digitalRead(contacto)==LOW){
+    estado=1;
+    if (estado!=estado_anterior){
+      estado_anterior = 1;
+      Serial.println("ABIERTA");
+      digitalWrite(led,HIGH); //Prende el LED
+      delay(10000);  
+    }
+  }else{  
+    estado = 0;
+    Serial.println("CERRADA");
+    digitalWrite(led,LOW); //Mantiene apagado el LED 
+    estado_anterior = 0;
+    //if (estado!=estado_anterior){
+    //estado_anterior = 0;
+    //Serial.println("CERRADA");
+    //digitalWrite(led,LOW); //Mantiene apagado el LED 
+    //delay(10000);    
+    //}
+
+ 
+  } 
+}
+ 
+//Fin del programa
