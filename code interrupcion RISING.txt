@@ -1,0 +1,26 @@
+#define boton 2
+
+volatile int state = LOW;
+int bocina = 9;
+int led= 13;    
+
+void setup() {
+  pinMode(boton, INPUT_PULLUP);
+  pinMode(led, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(boton), miInterrupcion, RISING);
+  pinMode(bocina, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  delay(500);
+  digitalWrite(led, LOW);
+  Serial.println("CERRADA");
+  analogWrite(bocina, 0);
+}
+
+void miInterrupcion() {
+  digitalWrite(led, HIGH);
+  Serial.println("ABIERTA");
+  analogWrite(bocina, 10);
+}
